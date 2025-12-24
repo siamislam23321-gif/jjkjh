@@ -1,0 +1,54 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Exam Result</title>
+</head>
+<body>
+
+<h2>পরীক্ষার রেজাল্ট</h2>
+
+<label>Roll Number:</label>
+<input type="text" id="roll" placeholder="Roll Number">
+
+<button onclick="getResult()">রেজাল্ট দেখুন</button>
+
+<div id="result" style="margin-top:20px;"></div>
+
+<script>
+function getResult() {
+  var roll = document.getElementById("roll").value.trim();
+
+  // তোমার CSV link
+  var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg5JxNEchx7EygCk_JFu20HjgZsLMi1cDaxvyMtZm2fk1_l2GBh3kuJ0fZV7UgTVOBpmAd-ss7Ov77/pub?output=csv";
+
+  fetch(url)
+    .then(res => res.text())
+    .then(csvText => {
+      let rows = csvText.trim().split("\n").map(r => r.split(","));
+      // Column A-F: A=Roll, B=Name, C=Bangla, D=Math, E=Total, F=Grade
+      let data = rows.slice(1).map(r => ({
+        A: r[0], B: r[1], C: r[2], D: r[3], E: r[4], F: r[5]
+      }));
+      let found = data.find(r => r.A == roll);
+      if(found){
+        document.getElementById("result").innerHTML = `
+          <p>Name: ${found.B}</p>
+          <p>Bangla: ${found.C}</p>
+          <p>Math: ${found.D}</p>
+          <p>Total: ${found.E}</p>
+          <p>Grade: ${found.F}</p>
+        `;
+      } else {
+        document.getElementById("result").innerHTML = "রেজাল্ট পাওয়া যায়নি";
+      }
+    })
+    .catch(err => {
+      document.getElementById("result").innerHTML = "ডাটা লোড করতে সমস্যা হয়েছে";
+      console.error(err);
+    });
+}
+</script>
+
+</body>
+</html>
