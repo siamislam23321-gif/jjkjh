@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
@@ -13,8 +13,6 @@ body{
     animation:bgShift 30s ease infinite;
     color:#fff;
 }
-
-/* Background gradient animation */
 @keyframes bgShift{
     0%{background-position:0% 50%;}
     25%{background-position:50% 50%;}
@@ -35,26 +33,11 @@ body{
     flex-direction:column;
     z-index:999;
 }
-
-.password-box{
-    position:relative;
-    margin-top:10px;
-}
-
-.password-box input{
-    padding:10px 40px 10px 10px;
-    border-radius:8px;
-    border:none;
-}
-
+.password-box{position:relative;margin-top:10px;}
+.password-box input{padding:10px 40px 10px 10px;border-radius:8px;border:none;}
 .password-box span{
-    position:absolute;
-    right:10px;
-    top:50%;
-    transform:translateY(-50%);
-    cursor:pointer;
+    position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;
 }
-
 #login button{
     padding:10px 20px;
     margin-top:15px;
@@ -77,8 +60,6 @@ body{
     box-shadow:0 8px 30px rgba(0,0,0,0.6);
     position:relative;
 }
-
-/* Logo inside Card */
 .dev-card img{
     width:120px;
     height:120px;
@@ -93,28 +74,32 @@ body{
     position:absolute;
     top:50%;
     left:50%;
-    width:260px;
-    height:260px;
+    width:280px;
+    height:280px;
     transform:translate(-50%,-50%);
 }
 
-/* Planet */
+/* Planet images */
 .orbit-planet{
     position:absolute;
     top:50%;
     left:50%;
+    width:30px; height:30px;
     border-radius:50%;
     transform-origin:-50% 0%;
     animation:spin linear infinite;
 }
+.orbit-planet img{
+    width:100%; height:100%; border-radius:50%;
+}
 
-/* Different planets */
-.mercury{ width:15px; height:15px; background:#b0b0b0; animation-duration:5s;}
-.venus{ width:18px; height:18px; background:#e5c07b; animation-duration:8s;}
-.earth{ width:20px; height:20px; background:#3b82f6; animation-duration:12s;}
-.mars{ width:16px; height:16px; background:#f87171; animation-duration:16s;}
-.jupiter{ width:25px; height:25px; background:#fbbf24; animation-duration:20s;}
-.saturn{ width:22px; height:22px; background:#fde68a; animation-duration:25s;}
+/* Individual planets with different orbit radius and speed */
+.mercury{animation-duration:5s;}
+.venus{animation-duration:8s;}
+.earth{animation-duration:12s;}
+.mars{animation-duration:16s;}
+.jupiter{animation-duration:20s;}
+.saturn{animation-duration:25s;}
 
 /* Spin animation */
 @keyframes spin{
@@ -123,15 +108,8 @@ body{
 }
 
 /* Card text */
-.dev-card h3{
-    margin:10px 0 5px;
-    font-size:1.2rem;
-}
-.dev-card p{
-    margin:0;
-    font-size:0.9rem;
-    color:#e5e7eb;
-}
+.dev-card h3{margin:10px 0 5px;font-size:1.2rem;}
+.dev-card p{margin:0;font-size:0.9rem;color:#e5e7eb;}
 
 /* Cards for downloads */
 .card{
@@ -143,7 +121,6 @@ body{
     max-width:420px;
     box-shadow:0 8px 30px rgba(0,0,0,0.4);
 }
-
 .folder{
     background:#38bdf8;
     padding:14px;
@@ -167,8 +144,6 @@ body{
     color:#fff;
     font-weight:bold;
 }
-
-/* Responsive */
 @media(max-width:480px){
     .dev-card img{width:100px;height:100px;}
     .dev-card h3{font-size:1rem;}
@@ -192,12 +167,12 @@ body{
 <!-- Developer Card -->
 <div class="dev-card">
     <div class="orbit-container">
-        <div class="orbit-planet mercury" style="--r:70px;"></div>
-        <div class="orbit-planet venus" style="--r:90px;"></div>
-        <div class="orbit-planet earth" style="--r:110px;"></div>
-        <div class="orbit-planet mars" style="--r:130px;"></div>
-        <div class="orbit-planet jupiter" style="--r:150px;"></div>
-        <div class="orbit-planet saturn" style="--r:170px;"></div>
+        <div class="orbit-planet mercury" style="--r:70px;"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_true_color.jpg" alt="Mercury"></div>
+        <div class="orbit-planet venus" style="--r:90px;"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg" alt="Venus"></div>
+        <div class="orbit-planet earth" style="--r:110px;"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg" alt="Earth"></div>
+        <div class="orbit-planet mars" style="--r:130px;"><img src="https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg" alt="Mars"></div>
+        <div class="orbit-planet jupiter" style="--r:150px;"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg" alt="Jupiter"></div>
+        <div class="orbit-planet saturn" style="--r:170px;"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg" alt="Saturn"></div>
     </div>
     <img src="dev.jpg" alt="Developer Photo">
     <h3>Developed by Siam</h3>
@@ -230,9 +205,7 @@ function checkPass(){
     if(input===correctPassword){
         localStorage.setItem("accessGranted","true");
         document.getElementById("login").style.display="none";
-    }else{
-        alert("Wrong Password!");
-    }
+    }else{ alert("Wrong Password!"); }
 }
 
 if(localStorage.getItem("accessGranted")==="true"){
