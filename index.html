@@ -3,22 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SSC Study Drive</title>
+<title>SSC Study Drive - Mini Solar System</title>
 <style>
 body{
     margin:0;
     font-family:'Segoe UI',sans-serif;
-    background: linear-gradient(270deg,#0f202a,#203a43,#2c5364,#1e3c72,#141e30,#3a1c71,#d76d77,#ffaf7b);
-    background-size:1600% 1600%;
-    animation:bgShift 30s ease infinite;
     color:#fff;
+    overflow-x:hidden;
+    background:#0f172a;
 }
-@keyframes bgShift{
-    0%{background-position:0% 50%;}
-    25%{background-position:50% 50%;}
-    50%{background-position:100% 50%;}
-    75%{background-position:50% 50%;}
-    100%{background-position:0% 50%;}
+
+/* Galaxy Stars */
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:0.8;
+    animation:twinkle linear infinite;
+}
+
+@keyframes twinkle{
+    0%{opacity:0.2;}
+    50%{opacity:1;}
+    100%{opacity:0.2;}
 }
 
 /* LOGIN */
@@ -33,10 +42,21 @@ body{
     flex-direction:column;
     z-index:999;
 }
-.password-box{position:relative;margin-top:10px;}
-.password-box input{padding:10px 40px 10px 10px;border-radius:8px;border:none;}
+.password-box{
+    position:relative;
+    margin-top:10px;
+}
+.password-box input{
+    padding:10px 40px 10px 10px;
+    border-radius:8px;
+    border:none;
+}
 .password-box span{
-    position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
 }
 #login button{
     padding:10px 20px;
@@ -55,36 +75,39 @@ body{
     margin:50px auto 20px auto;
     max-width:360px;
     border-radius:20px;
-    background:rgba(255,255,255,0.1);
+    background:rgba(255,255,255,0.05);
     backdrop-filter:blur(15px);
     box-shadow:0 8px 30px rgba(0,0,0,0.6);
     position:relative;
 }
-.dev-card img{
+
+/* Orbit Container */
+.orbit-container{
+    position:relative;
+    width:220px;
+    height:220px;
+    margin:0 auto 20px auto;
+}
+
+.profile{
     width:100px;
     height:100px;
     border-radius:50%;
     border:3px solid #38bdf8;
-    position:relative;
-    z-index:2;
-}
-
-/* Orbit container */
-.orbit-container{
     position:absolute;
     top:50%;
     left:50%;
-    width:200px;
-    height:200px;
     transform:translate(-50%,-50%);
+    z-index:2;
 }
 
-/* Planet images */
+/* Planets */
 .orbit-planet{
     position:absolute;
     top:50%;
     left:50%;
-    width:14px; height:14px; /* Small planets for card */
+    width:14px;
+    height:14px;
     border-radius:50%;
     transform-origin:-50% 0%;
     animation:spin linear infinite;
@@ -93,7 +116,7 @@ body{
     width:100%; height:100%; border-radius:50%;
 }
 
-/* Orbit radius and speed */
+/* Orbit radius & speed */
 .mercury{--r:40px; animation-duration:4s;}
 .venus{--r:55px; animation-duration:7s;}
 .earth{--r:70px; animation-duration:10s;}
@@ -107,11 +130,11 @@ body{
     to{ transform:rotate(360deg) translateX(var(--r)) rotate(-360deg);}
 }
 
-/* Card text */
+/* Card Text */
 .dev-card h3{margin:10px 0 5px;font-size:1.2rem;}
 .dev-card p{margin:0;font-size:0.9rem;color:#e5e7eb;}
 
-/* Cards for downloads */
+/* Main Card */
 .card{
     background:rgba(255,255,255,0.05);
     backdrop-filter:blur(12px);
@@ -121,6 +144,7 @@ body{
     max-width:420px;
     box-shadow:0 8px 30px rgba(0,0,0,0.4);
 }
+
 .folder{
     background:#38bdf8;
     padding:14px;
@@ -144,15 +168,23 @@ body{
     color:#fff;
     font-weight:bold;
 }
-@media(max-width:480px){
-    .dev-card img{width:80px;height:80px;}
-    .dev-card h3{font-size:1rem;}
-    .folder{font-size:1rem; padding:12px;}
-    .download-btn{font-size:0.9rem; padding:8px;}
-}
 </style>
 </head>
 <body>
+
+<!-- Stars -->
+<script>
+const starCount = 100;
+for(let i=0;i<starCount;i++){
+    let star = document.createElement('div');
+    star.className='star';
+    star.style.left = Math.random()*100+'vw';
+    star.style.top = Math.random()*100+'vh';
+    star.style.width = star.style.height = (Math.random()*2 +1)+'px';
+    star.style.animationDuration = (Math.random()*5+5)+'s';
+    document.body.appendChild(star);
+}
+</script>
 
 <!-- LOGIN -->
 <div id="login">
@@ -164,9 +196,12 @@ body{
     <button onclick="checkPass()">Login</button>
 </div>
 
-<!-- Developer Card as Sun -->
+<!-- Developer Card -->
 <div class="dev-card">
     <div class="orbit-container">
+        <img src="dev.jpg" class="profile">
+
+        <!-- Orbiting Planets -->
         <div class="orbit-planet mercury"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_true_color.jpg" alt="Mercury"></div>
         <div class="orbit-planet venus"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg" alt="Venus"></div>
         <div class="orbit-planet earth"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg" alt="Earth"></div>
@@ -174,27 +209,19 @@ body{
         <div class="orbit-planet jupiter"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg" alt="Jupiter"></div>
         <div class="orbit-planet saturn"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg" alt="Saturn"></div>
     </div>
-    <img src="dev.jpg" alt="Developer Photo">
+
     <h3>Developed by Siam</h3>
     <p>SSC 2026 • Science Group</p>
 </div>
 
-<!-- Main Content -->
+<!-- MAIN CONTENT -->
 <div class="card">
-    <div class="folder" onclick="toggle(1)">📁 পদার্থবিজ্ঞান</div>
-    <div class="sub" id="1">
-        <a class="download-btn" href="https://drive.usercontent.google.com/download?id=YOUR_PHY_FILE" target="_blank">⬇ Download Physics</a>
-    </div>
-
-    <div class="folder" onclick="toggle(2)">📁 গণিত</div>
-    <div class="sub" id="2">
-        <a class="download-btn" href="https://drive.usercontent.google.com/download?id=YOUR_MATH_FILE" target="_blank">⬇ Download Math</a>
-    </div>
-
-    <div class="folder" onclick="toggle(3)">📁 ICT</div>
-    <div class="sub" id="3">
-        <a class="download-btn" href="https://drive.usercontent.google.com/download?id=YOUR_ICT_FILE" target="_blank">⬇ Download ICT</a>
-    </div>
+<div class="folder" onclick="toggle(1)">📁 পদার্থবিজ্ঞান</div>
+<div class="sub" id="1"><a class="download-btn" href="#">⬇ Download</a></div>
+<div class="folder" onclick="toggle(2)">📁 গণিত</div>
+<div class="sub" id="2"><a class="download-btn" href="#">⬇ Download</a></div>
+<div class="folder" onclick="toggle(3)">📁 ICT</div>
+<div class="sub" id="3"><a class="download-btn" href="#">⬇ Download</a></div>
 </div>
 
 <script>
@@ -204,7 +231,9 @@ function checkPass(){
     if(input===correctPassword){
         localStorage.setItem("accessGranted","true");
         document.getElementById("login").style.display="none";
-    }else{ alert("Wrong Password!"); }
+    }else{
+        alert("Wrong Password!");
+    }
 }
 if(localStorage.getItem("accessGranted")==="true"){
     document.getElementById("login").style.display="none";
@@ -219,6 +248,5 @@ function toggle(id){
     document.getElementById(id).style.display="block";
 }
 </script>
-
 </body>
 </html>
