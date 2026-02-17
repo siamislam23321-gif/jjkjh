@@ -3,14 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SSC Study Drive - Mini Solar System</title>
+<title>SSC Study Drive - Ultra Galaxy</title>
 <style>
 body{
     margin:0;
     font-family:'Segoe UI',sans-serif;
     color:#fff;
     overflow-x:hidden;
-    background:#0f172a;
+    /* ধীরে ধীরে changing gradient */
+    background: linear-gradient(270deg,#0f172a,#203a43,#2c5364,#1e3c72,#141e30,#3a1c71,#d76d77,#ffaf7b);
+    background-size:1600% 1600%;
+    animation:bgShift 30s ease infinite;
+}
+
+@keyframes bgShift{
+    0%{background-position:0% 50%;}
+    25%{background-position:50% 50%;}
+    50%{background-position:100% 50%;}
+    75%{background-position:50% 50%;}
+    100%{background-position:0% 50%;}
 }
 
 /* Galaxy Stars */
@@ -23,7 +34,6 @@ body{
     opacity:0.8;
     animation:twinkle linear infinite;
 }
-
 @keyframes twinkle{
     0%{opacity:0.2;}
     50%{opacity:1;}
@@ -81,19 +91,18 @@ body{
     position:relative;
 }
 
-/* Orbit Container */
+/* Orbit System */
 .orbit-container{
     position:relative;
-    width:220px;
-    height:220px;
+    width:260px;
+    height:260px;
     margin:0 auto 20px auto;
 }
-
 .profile{
-    width:100px;
-    height:100px;
+    width:150px;
+    height:150px;
     border-radius:50%;
-    border:3px solid #38bdf8;
+    border:4px solid #38bdf8;
     position:absolute;
     top:50%;
     left:50%;
@@ -101,38 +110,28 @@ body{
     z-index:2;
 }
 
-/* Planets */
-.orbit-planet{
+/* Orbit animation - multiple layers */
+.orbit{
     position:absolute;
     top:50%;
     left:50%;
-    width:14px;
-    height:14px;
-    border-radius:50%;
-    transform-origin:-50% 0%;
+    transform-origin:-120px 0;
     animation:spin linear infinite;
+    font-weight:bold;
+    font-size:18px;
+    color:#00ffff;
+    text-shadow:0 0 8px #00ffff;
 }
-.orbit-planet img{
-    width:100%; height:100%; border-radius:50%;
-}
+.orbit:nth-child(n+3){animation-duration:12s;}
+.orbit:nth-child(n+6){animation-duration:15s;}
+.orbit:nth-child(n+9){animation-duration:20s;}
+.orbit:nth-child(n+12){animation-duration:25s;}
+.orbit:nth-child(n+15){animation-duration:30s;}
 
-/* Orbit radius & speed */
-.mercury{--r:40px; animation-duration:4s;}
-.venus{--r:55px; animation-duration:7s;}
-.earth{--r:70px; animation-duration:10s;}
-.mars{--r:85px; animation-duration:13s;}
-.jupiter{--r:100px; animation-duration:16s;}
-.saturn{--r:115px; animation-duration:20s;}
-
-/* Spin animation */
 @keyframes spin{
-    from{ transform:rotate(0deg) translateX(var(--r)) rotate(0deg);}
-    to{ transform:rotate(360deg) translateX(var(--r)) rotate(-360deg);}
+    from{transform:rotate(0deg) translateX(120px) rotate(0deg);}
+    to{transform:rotate(360deg) translateX(120px) rotate(-360deg);}
 }
-
-/* Card Text */
-.dev-card h3{margin:10px 0 5px;font-size:1.2rem;}
-.dev-card p{margin:0;font-size:0.9rem;color:#e5e7eb;}
 
 /* Main Card */
 .card{
@@ -172,7 +171,7 @@ body{
 </head>
 <body>
 
-<!-- Stars -->
+<!-- Stars Container -->
 <script>
 const starCount = 100;
 for(let i=0;i<starCount;i++){
@@ -201,13 +200,25 @@ for(let i=0;i<starCount;i++){
     <div class="orbit-container">
         <img src="dev.jpg" class="profile">
 
-        <!-- Orbiting Planets -->
-        <div class="orbit-planet mercury"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_true_color.jpg" alt="Mercury"></div>
-        <div class="orbit-planet venus"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg" alt="Venus"></div>
-        <div class="orbit-planet earth"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg" alt="Earth"></div>
-        <div class="orbit-planet mars"><img src="https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg" alt="Mars"></div>
-        <div class="orbit-planet jupiter"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg" alt="Jupiter"></div>
-        <div class="orbit-planet saturn"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg" alt="Saturn"></div>
+        <!-- Orbiting formulas & symbols -->
+        <span class="orbit">E=mc²</span>
+        <span class="orbit">⚛️</span>
+        <span class="orbit">H₂O</span>
+        <span class="orbit">🧪</span>
+        <span class="orbit">F=ma</span>
+        <span class="orbit">🔬</span>
+        <span class="orbit">π</span>
+        <span class="orbit">√x</span>
+        <span class="orbit">∆</span>
+        <span class="orbit">CO₂</span>
+        <span class="orbit">NaCl</span>
+        <span class="orbit">💡</span>
+        <span class="orbit">📐</span>
+        <span class="orbit">x²</span>
+        <span class="orbit">⚡</span>
+        <span class="orbit">λ</span>
+        <span class="orbit">🌟</span>
+        <span class="orbit">☄️</span>
     </div>
 
     <h3>Developed by Siam</h3>
@@ -231,9 +242,7 @@ function checkPass(){
     if(input===correctPassword){
         localStorage.setItem("accessGranted","true");
         document.getElementById("login").style.display="none";
-    }else{
-        alert("Wrong Password!");
-    }
+    }else{alert("Wrong Password!");}
 }
 if(localStorage.getItem("accessGranted")==="true"){
     document.getElementById("login").style.display="none";
