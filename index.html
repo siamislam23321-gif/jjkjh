@@ -21,6 +21,51 @@ body{
     100%{background-position:0% 50%;}
 }
 
+/* Login Screen */
+#login{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#0f172a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:999;
+}
+
+.password-box{
+    position:relative;
+    margin-top:10px;
+}
+
+.password-box input{
+    padding:10px 40px 10px 10px;
+    border-radius:8px;
+    border:none;
+}
+
+.password-box span{
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    font-size:18px;
+}
+
+#login button{
+    padding:10px 20px;
+    margin-top:15px;
+    border:none;
+    border-radius:8px;
+    background:#38bdf8;
+    color:#fff;
+    cursor:pointer;
+}
+
 /* Developer Card */
 .dev-card{
     text-align:center;
@@ -40,9 +85,6 @@ body{
     border:3px solid #38bdf8;
 }
 
-.dev-card h3{margin:10px 0 5px;}
-.dev-card p{margin:0;font-size:14px;color:#ddd;}
-
 /* Main Card */
 .card{
     background:rgba(255,255,255,0.08);
@@ -54,9 +96,6 @@ body{
     box-shadow:0 8px 30px rgba(0,0,0,0.4);
 }
 
-h2{text-align:center;}
-
-/* Folder */
 .folder{
     background:#38bdf8;
     padding:14px;
@@ -65,12 +104,6 @@ h2{text-align:center;}
     cursor:pointer;
     font-weight:bold;
     text-align:center;
-    transition:0.3s;
-}
-
-.folder:hover{
-    background:#0ea5e9;
-    transform:scale(1.05);
 }
 
 .sub{display:none;}
@@ -85,52 +118,20 @@ h2{text-align:center;}
     text-decoration:none;
     color:#fff;
     font-weight:bold;
-    transition:0.3s;
-}
-
-.download-btn:hover{
-    background:#16a34a;
-}
-
-/* Login Screen */
-#login{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:#0f172a;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    z-index:999;
-}
-
-#login input{
-    padding:10px;
-    border-radius:8px;
-    border:none;
-    margin-top:10px;
-}
-
-#login button{
-    padding:10px 20px;
-    margin-top:10px;
-    border:none;
-    border-radius:8px;
-    background:#38bdf8;
-    color:#fff;
-    cursor:pointer;
 }
 </style>
 </head>
 <body>
 
-<!-- Password Screen -->
+<!-- Login -->
 <div id="login">
     <h2>🔐 SSC Secure Access</h2>
-    <input type="password" id="pass" placeholder="Enter Password">
+
+    <div class="password-box">
+        <input type="password" id="pass" placeholder="Enter Password">
+        <span onclick="togglePassword()">👁️</span>
+    </div>
+
     <button onclick="checkPass()">Login</button>
 </div>
 
@@ -139,31 +140,29 @@ h2{text-align:center;}
     <img src="dev.jpg" alt="Developer Photo">
     <h3>Developed by Siam</h3>
     <p>SSC 2026 • Science Group</p>
-    <p>Future Engineer 🚀</p>
 </div>
 
 <div class="card">
-<h2>📚 SSC 2026 Study Drive</h2>
 
 <div class="folder" onclick="toggle(1)">📁 পদার্থবিজ্ঞান</div>
 <div class="sub" id="1">
-<a class="download-btn" href="https://drive.google.com/uc?export=download&id=1atcsnz77t45XFIHG6iB2hKrYBghaTd8H">⬇ Download</a>
+<a class="download-btn" href="#">⬇ Download</a>
 </div>
 
 <div class="folder" onclick="toggle(2)">📁 গণিত</div>
 <div class="sub" id="2">
-<a class="download-btn" href="https://drive.google.com/uc?export=download&id=1YN-LEMdk76B0ozv21_o2jfvnb2TQxcRn">⬇ Download</a>
+<a class="download-btn" href="#">⬇ Download</a>
 </div>
 
 <div class="folder" onclick="toggle(3)">📁 ICT</div>
 <div class="sub" id="3">
-<a class="download-btn" href="https://drive.google.com/uc?export=download&id=1tfh3ccVmhhnBb6TI6MB_4ZtNTxmRXHbJ">⬇ Download</a>
+<a class="download-btn" href="#">⬇ Download</a>
 </div>
 
 </div>
 
 <script>
-const correctPassword = "Siam@SSC2026!";
+const correctPassword = "walton";
 
 function checkPass(){
     const input = document.getElementById("pass").value;
@@ -179,11 +178,19 @@ if(localStorage.getItem("accessGranted")==="true"){
     document.getElementById("login").style.display="none";
 }
 
+function togglePassword(){
+    const passInput = document.getElementById("pass");
+    if(passInput.type === "password"){
+        passInput.type = "text";
+    }else{
+        passInput.type = "password";
+    }
+}
+
 function toggle(id){
     const subs=document.querySelectorAll(".sub");
     subs.forEach(el=>el.style.display="none");
-    const target=document.getElementById(id);
-    target.style.display="block";
+    document.getElementById(id).style.display="block";
 }
 </script>
 
