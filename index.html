@@ -3,22 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SSC Study Drive</title>
-
+<title>SSC Study Drive - Ultra Galaxy</title>
 <style>
 body{
     margin:0;
     font-family:'Segoe UI',sans-serif;
     color:#fff;
-    background: linear-gradient(-45deg,#141e30,#243b55,#0f2027,#1e3c72);
-    background-size:400% 400%;
-    animation:gradientBG 12s ease infinite;
+    overflow-x:hidden;
+    background:#0f172a;
 }
 
-@keyframes gradientBG{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+/* Galaxy Stars */
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:0.8;
+    animation:twinkle linear infinite;
+}
+
+@keyframes twinkle{
+    0%{opacity:0.2;}
+    50%{opacity:1;}
+    100%{opacity:0.2;}
 }
 
 /* LOGIN */
@@ -26,7 +35,7 @@ body{
     position:fixed;
     top:0; left:0;
     width:100%; height:100%;
-    background:#0f172a;
+    background:rgba(0,0,0,0.95);
     display:flex;
     justify-content:center;
     align-items:center;
@@ -63,29 +72,30 @@ body{
     cursor:pointer;
 }
 
-/* DEV CARD */
+/* Developer Card */
 .dev-card{
     text-align:center;
     padding:25px;
-    margin:25px auto;
-    max-width:350px;
+    margin:50px auto 20px auto;
+    max-width:360px;
     border-radius:20px;
-    background:rgba(255,255,255,0.1);
+    background:rgba(255,255,255,0.05);
     backdrop-filter:blur(15px);
-    box-shadow:0 8px 30px rgba(0,0,0,0.4);
+    box-shadow:0 8px 30px rgba(0,0,0,0.6);
+    position:relative;
 }
 
 /* Orbit System */
 .orbit-container{
     position:relative;
-    width:220px;
-    height:220px;
-    margin:0 auto 15px auto;
+    width:260px;
+    height:260px;
+    margin:0 auto 20px auto;
 }
 
 .profile{
-    width:140px;
-    height:140px;
+    width:150px;
+    height:150px;
     border-radius:50%;
     border:4px solid #38bdf8;
     position:absolute;
@@ -95,31 +105,33 @@ body{
     z-index:2;
 }
 
+/* Orbit animation - multiple layers */
 .orbit{
     position:absolute;
     top:50%;
     left:50%;
-    transform-origin:-100px 0;
-    animation:spin 10s linear infinite;
+    transform-origin:-120px 0;
+    animation:spin linear infinite;
     font-weight:bold;
     font-size:18px;
-    color:#38bdf8;
+    color:#00ffff;
+    text-shadow:0 0 8px #00ffff;
 }
 
-.orbit:nth-child(3){animation-duration:12s;}
-.orbit:nth-child(4){animation-duration:14s;}
-.orbit:nth-child(5){animation-duration:16s;}
-.orbit:nth-child(6){animation-duration:18s;}
-.orbit:nth-child(7){animation-duration:20s;}
+.orbit:nth-child(n+3){animation-duration:12s;}
+.orbit:nth-child(n+6){animation-duration:15s;}
+.orbit:nth-child(n+9){animation-duration:20s;}
+.orbit:nth-child(n+12){animation-duration:25s;}
+.orbit:nth-child(n+15){animation-duration:30s;}
 
 @keyframes spin{
-    from{ transform:rotate(0deg) translateX(100px) rotate(0deg); }
-    to{ transform:rotate(360deg) translateX(100px) rotate(-360deg); }
+    from{transform:rotate(0deg) translateX(120px) rotate(0deg);}
+    to{transform:rotate(360deg) translateX(120px) rotate(-360deg);}
 }
 
-/* MAIN CARD */
+/* Main Card */
 .card{
-    background:rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.05);
     backdrop-filter:blur(12px);
     border-radius:20px;
     padding:20px;
@@ -139,12 +151,8 @@ body{
     transition:0.3s;
 }
 
-.folder:hover{
-    background:#0ea5e9;
-}
-
+.folder:hover{background:#0ea5e9;}
 .sub{display:none;}
-
 .download-btn{
     display:block;
     text-align:center;
@@ -160,6 +168,20 @@ body{
 </head>
 <body>
 
+<!-- Stars Container -->
+<script>
+const starCount = 100;
+for(let i=0;i<starCount;i++){
+    let star = document.createElement('div');
+    star.className='star';
+    star.style.left = Math.random()*100+'vw';
+    star.style.top = Math.random()*100+'vh';
+    star.style.width = star.style.height = (Math.random()*2 +1)+'px';
+    star.style.animationDuration = (Math.random()*5+5)+'s';
+    document.body.appendChild(star);
+}
+</script>
+
 <!-- LOGIN -->
 <div id="login">
     <h2>🔐 SSC Secure Access</h2>
@@ -170,18 +192,30 @@ body{
     <button onclick="checkPass()">Login</button>
 </div>
 
-<!-- DEVELOPER CARD -->
+<!-- Developer Card -->
 <div class="dev-card">
-
     <div class="orbit-container">
         <img src="dev.jpg" class="profile">
 
+        <!-- Orbiting formulas & symbols -->
         <span class="orbit">E=mc²</span>
         <span class="orbit">⚛️</span>
         <span class="orbit">H₂O</span>
         <span class="orbit">🧪</span>
         <span class="orbit">F=ma</span>
         <span class="orbit">🔬</span>
+        <span class="orbit">π</span>
+        <span class="orbit">√x</span>
+        <span class="orbit">∆</span>
+        <span class="orbit">CO₂</span>
+        <span class="orbit">NaCl</span>
+        <span class="orbit">💡</span>
+        <span class="orbit">📐</span>
+        <span class="orbit">x²</span>
+        <span class="orbit">⚡</span>
+        <span class="orbit">λ</span>
+        <span class="orbit">🌟</span>
+        <span class="orbit">☄️</span>
     </div>
 
     <h3>Developed by Siam</h3>
@@ -190,26 +224,16 @@ body{
 
 <!-- MAIN CONTENT -->
 <div class="card">
-
 <div class="folder" onclick="toggle(1)">📁 পদার্থবিজ্ঞান</div>
-<div class="sub" id="1">
-<a class="download-btn" href="#">⬇ Download</a>
-</div>
-
+<div class="sub" id="1"><a class="download-btn" href="#">⬇ Download</a></div>
 <div class="folder" onclick="toggle(2)">📁 গণিত</div>
-<div class="sub" id="2">
-<a class="download-btn" href="#">⬇ Download</a>
-</div>
-
+<div class="sub" id="2"><a class="download-btn" href="#">⬇ Download</a></div>
 <div class="folder" onclick="toggle(3)">📁 ICT</div>
-<div class="sub" id="3">
-<a class="download-btn" href="#">⬇ Download</a>
-</div>
-
+<div class="sub" id="3"><a class="download-btn" href="#">⬇ Download</a></div>
 </div>
 
 <script>
-const correctPassword = "260074";
+const correctPassword="Siam@SSC2026!";
 
 function checkPass(){
     const input=document.getElementById("pass").value;
@@ -236,6 +260,5 @@ function toggle(id){
     document.getElementById(id).style.display="block";
 }
 </script>
-
 </body>
 </html>
