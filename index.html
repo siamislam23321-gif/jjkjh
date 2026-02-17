@@ -3,31 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SSC Study Drive - Ultra Galaxy</title>
+<title>SSC Study Drive</title>
 <style>
 body{
     margin:0;
     font-family:'Segoe UI',sans-serif;
+    background: linear-gradient(270deg,#0f202a,#203a43,#2c5364,#1e3c72,#141e30,#3a1c71,#d76d77,#ffaf7b);
+    background-size:1600% 1600%;
+    animation:bgShift 30s ease infinite;
     color:#fff;
-    overflow-x:hidden;
-    background:#0f172a;
 }
 
-/* Galaxy Stars */
-.star{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    border-radius:50%;
-    opacity:0.8;
-    animation:twinkle linear infinite;
-}
-
-@keyframes twinkle{
-    0%{opacity:0.2;}
-    50%{opacity:1;}
-    100%{opacity:0.2;}
+/* Background gradient animation */
+@keyframes bgShift{
+    0%{background-position:0% 50%;}
+    25%{background-position:50% 50%;}
+    50%{background-position:100% 50%;}
+    75%{background-position:50% 50%;}
+    100%{background-position:0% 50%;}
 }
 
 /* LOGIN */
@@ -79,57 +72,68 @@ body{
     margin:50px auto 20px auto;
     max-width:360px;
     border-radius:20px;
-    background:rgba(255,255,255,0.05);
+    background:rgba(255,255,255,0.1);
     backdrop-filter:blur(15px);
     box-shadow:0 8px 30px rgba(0,0,0,0.6);
     position:relative;
 }
 
-/* Orbit System */
-.orbit-container{
-    position:relative;
-    width:260px;
-    height:260px;
-    margin:0 auto 20px auto;
-}
-
-.profile{
-    width:150px;
-    height:150px;
+/* Logo inside Card */
+.dev-card img{
+    width:120px;
+    height:120px;
     border-radius:50%;
-    border:4px solid #38bdf8;
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
+    border:3px solid #38bdf8;
+    position:relative;
     z-index:2;
 }
 
-/* Orbit animation - multiple layers */
-.orbit{
+/* Orbit container */
+.orbit-container{
     position:absolute;
     top:50%;
     left:50%;
-    transform-origin:-120px 0;
+    width:260px;
+    height:260px;
+    transform:translate(-50%,-50%);
+}
+
+/* Planet */
+.orbit-planet{
+    position:absolute;
+    top:50%;
+    left:50%;
+    border-radius:50%;
+    transform-origin:-50% 0%;
     animation:spin linear infinite;
-    font-weight:bold;
-    font-size:18px;
-    color:#00ffff;
-    text-shadow:0 0 8px #00ffff;
 }
 
-.orbit:nth-child(n+3){animation-duration:12s;}
-.orbit:nth-child(n+6){animation-duration:15s;}
-.orbit:nth-child(n+9){animation-duration:20s;}
-.orbit:nth-child(n+12){animation-duration:25s;}
-.orbit:nth-child(n+15){animation-duration:30s;}
+/* Different planets */
+.mercury{ width:15px; height:15px; background:#b0b0b0; animation-duration:5s;}
+.venus{ width:18px; height:18px; background:#e5c07b; animation-duration:8s;}
+.earth{ width:20px; height:20px; background:#3b82f6; animation-duration:12s;}
+.mars{ width:16px; height:16px; background:#f87171; animation-duration:16s;}
+.jupiter{ width:25px; height:25px; background:#fbbf24; animation-duration:20s;}
+.saturn{ width:22px; height:22px; background:#fde68a; animation-duration:25s;}
 
+/* Spin animation */
 @keyframes spin{
-    from{transform:rotate(0deg) translateX(120px) rotate(0deg);}
-    to{transform:rotate(360deg) translateX(120px) rotate(-360deg);}
+    from{ transform:rotate(0deg) translateX(var(--r)) rotate(0deg);}
+    to{ transform:rotate(360deg) translateX(var(--r)) rotate(-360deg);}
 }
 
-/* Main Card */
+/* Card text */
+.dev-card h3{
+    margin:10px 0 5px;
+    font-size:1.2rem;
+}
+.dev-card p{
+    margin:0;
+    font-size:0.9rem;
+    color:#e5e7eb;
+}
+
+/* Cards for downloads */
 .card{
     background:rgba(255,255,255,0.05);
     backdrop-filter:blur(12px);
@@ -150,7 +154,6 @@ body{
     text-align:center;
     transition:0.3s;
 }
-
 .folder:hover{background:#0ea5e9;}
 .sub{display:none;}
 .download-btn{
@@ -164,23 +167,17 @@ body{
     color:#fff;
     font-weight:bold;
 }
+
+/* Responsive */
+@media(max-width:480px){
+    .dev-card img{width:100px;height:100px;}
+    .dev-card h3{font-size:1rem;}
+    .folder{font-size:1rem; padding:12px;}
+    .download-btn{font-size:0.9rem; padding:8px;}
+}
 </style>
 </head>
 <body>
-
-<!-- Stars Container -->
-<script>
-const starCount = 100;
-for(let i=0;i<starCount;i++){
-    let star = document.createElement('div');
-    star.className='star';
-    star.style.left = Math.random()*100+'vw';
-    star.style.top = Math.random()*100+'vh';
-    star.style.width = star.style.height = (Math.random()*2 +1)+'px';
-    star.style.animationDuration = (Math.random()*5+5)+'s';
-    document.body.appendChild(star);
-}
-</script>
 
 <!-- LOGIN -->
 <div id="login">
@@ -195,41 +192,34 @@ for(let i=0;i<starCount;i++){
 <!-- Developer Card -->
 <div class="dev-card">
     <div class="orbit-container">
-        <img src="dev.jpg" class="profile">
-
-        <!-- Orbiting formulas & symbols -->
-        <span class="orbit">E=mc²</span>
-        <span class="orbit">⚛️</span>
-        <span class="orbit">H₂O</span>
-        <span class="orbit">🧪</span>
-        <span class="orbit">F=ma</span>
-        <span class="orbit">🔬</span>
-        <span class="orbit">π</span>
-        <span class="orbit">√x</span>
-        <span class="orbit">∆</span>
-        <span class="orbit">CO₂</span>
-        <span class="orbit">NaCl</span>
-        <span class="orbit">💡</span>
-        <span class="orbit">📐</span>
-        <span class="orbit">x²</span>
-        <span class="orbit">⚡</span>
-        <span class="orbit">λ</span>
-        <span class="orbit">🌟</span>
-        <span class="orbit">☄️</span>
+        <div class="orbit-planet mercury" style="--r:70px;"></div>
+        <div class="orbit-planet venus" style="--r:90px;"></div>
+        <div class="orbit-planet earth" style="--r:110px;"></div>
+        <div class="orbit-planet mars" style="--r:130px;"></div>
+        <div class="orbit-planet jupiter" style="--r:150px;"></div>
+        <div class="orbit-planet saturn" style="--r:170px;"></div>
     </div>
-
+    <img src="dev.jpg" alt="Developer Photo">
     <h3>Developed by Siam</h3>
     <p>SSC 2026 • Science Group</p>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- Main Content -->
 <div class="card">
-<div class="folder" onclick="toggle(1)">📁 পদার্থবিজ্ঞান</div>
-<div class="sub" id="1"><a class="download-btn" href="#">⬇ Download</a></div>
-<div class="folder" onclick="toggle(2)">📁 গণিত</div>
-<div class="sub" id="2"><a class="download-btn" href="#">⬇ Download</a></div>
-<div class="folder" onclick="toggle(3)">📁 ICT</div>
-<div class="sub" id="3"><a class="download-btn" href="#">⬇ Download</a></div>
+    <div class="folder" onclick="toggle(1)">📁 পদার্থবিজ্ঞান</div>
+    <div class="sub" id="1">
+        <a class="download-btn" href="https://drive.usercontent.google.com/download?id=YOUR_PHY_FILE" target="_blank">⬇ Download Physics</a>
+    </div>
+
+    <div class="folder" onclick="toggle(2)">📁 গণিত</div>
+    <div class="sub" id="2">
+        <a class="download-btn" href="https://drive.usercontent.google.com/download?id=YOUR_MATH_FILE" target="_blank">⬇ Download Math</a>
+    </div>
+
+    <div class="folder" onclick="toggle(3)">📁 ICT</div>
+    <div class="sub" id="3">
+        <a class="download-btn" href="https://drive.usercontent.google.com/download?id=YOUR_ICT_FILE" target="_blank">⬇ Download ICT</a>
+    </div>
 </div>
 
 <script>
@@ -260,5 +250,6 @@ function toggle(id){
     document.getElementById(id).style.display="block";
 }
 </script>
+
 </body>
 </html>
