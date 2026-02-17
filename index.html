@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
@@ -61,8 +61,8 @@ body{
     position:relative;
 }
 .dev-card img{
-    width:120px;
-    height:120px;
+    width:100px;
+    height:100px;
     border-radius:50%;
     border:3px solid #38bdf8;
     position:relative;
@@ -74,8 +74,8 @@ body{
     position:absolute;
     top:50%;
     left:50%;
-    width:240px;
-    height:240px;
+    width:200px;
+    height:200px;
     transform:translate(-50%,-50%);
 }
 
@@ -84,7 +84,7 @@ body{
     position:absolute;
     top:50%;
     left:50%;
-    width:20px; height:20px;
+    width:14px; height:14px; /* Small planets for card */
     border-radius:50%;
     transform-origin:-50% 0%;
     animation:spin linear infinite;
@@ -93,13 +93,13 @@ body{
     width:100%; height:100%; border-radius:50%;
 }
 
-/* Individual planets with orbit radius and speed */
-.mercury{--r:50px; animation-duration:5s;}
-.venus{--r:70px; animation-duration:8s;}
-.earth{--r:90px; animation-duration:12s;}
-.mars{--r:110px; animation-duration:16s;}
-.jupiter{--r:130px; animation-duration:20s;}
-.saturn{--r:150px; animation-duration:25s;}
+/* Orbit radius and speed */
+.mercury{--r:40px; animation-duration:4s;}
+.venus{--r:55px; animation-duration:7s;}
+.earth{--r:70px; animation-duration:10s;}
+.mars{--r:85px; animation-duration:13s;}
+.jupiter{--r:100px; animation-duration:16s;}
+.saturn{--r:115px; animation-duration:20s;}
 
 /* Spin animation */
 @keyframes spin{
@@ -145,7 +145,7 @@ body{
     font-weight:bold;
 }
 @media(max-width:480px){
-    .dev-card img{width:100px;height:100px;}
+    .dev-card img{width:80px;height:80px;}
     .dev-card h3{font-size:1rem;}
     .folder{font-size:1rem; padding:12px;}
     .download-btn{font-size:0.9rem; padding:8px;}
@@ -164,7 +164,7 @@ body{
     <button onclick="checkPass()">Login</button>
 </div>
 
-<!-- Developer Card -->
+<!-- Developer Card as Sun -->
 <div class="dev-card">
     <div class="orbit-container">
         <div class="orbit-planet mercury"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_true_color.jpg" alt="Mercury"></div>
@@ -199,7 +199,6 @@ body{
 
 <script>
 const correctPassword="Siam@SSC2026!";
-
 function checkPass(){
     const input=document.getElementById("pass").value;
     if(input===correctPassword){
@@ -207,16 +206,13 @@ function checkPass(){
         document.getElementById("login").style.display="none";
     }else{ alert("Wrong Password!"); }
 }
-
 if(localStorage.getItem("accessGranted")==="true"){
     document.getElementById("login").style.display="none";
 }
-
 function togglePassword(){
     const passInput=document.getElementById("pass");
     passInput.type=passInput.type==="password"?"text":"password";
 }
-
 function toggle(id){
     const subs=document.querySelectorAll(".sub");
     subs.forEach(el=>el.style.display="none");
