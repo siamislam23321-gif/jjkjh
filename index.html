@@ -21,13 +21,11 @@ body{
     100%{background-position:0% 50%;}
 }
 
-/* Login Screen */
+/* LOGIN */
 #login{
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    top:0; left:0;
+    width:100%; height:100%;
     background:#0f172a;
     display:flex;
     justify-content:center;
@@ -53,7 +51,6 @@ body{
     top:50%;
     transform:translateY(-50%);
     cursor:pointer;
-    font-size:18px;
 }
 
 #login button{
@@ -66,26 +63,61 @@ body{
     cursor:pointer;
 }
 
-/* Developer Card */
+/* DEV CARD */
 .dev-card{
     text-align:center;
-    padding:20px;
+    padding:25px;
     margin:25px auto;
-    max-width:330px;
+    max-width:350px;
     border-radius:20px;
     background:rgba(255,255,255,0.1);
     backdrop-filter:blur(15px);
     box-shadow:0 8px 30px rgba(0,0,0,0.4);
 }
 
-.dev-card img{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    border:3px solid #38bdf8;
+/* Orbit System */
+.orbit-container{
+    position:relative;
+    width:220px;
+    height:220px;
+    margin:0 auto 15px auto;
 }
 
-/* Main Card */
+.profile{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    border:4px solid #38bdf8;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:2;
+}
+
+.orbit{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform-origin:-100px 0;
+    animation:spin 10s linear infinite;
+    font-weight:bold;
+    font-size:18px;
+    color:#38bdf8;
+}
+
+.orbit:nth-child(3){animation-duration:12s;}
+.orbit:nth-child(4){animation-duration:14s;}
+.orbit:nth-child(5){animation-duration:16s;}
+.orbit:nth-child(6){animation-duration:18s;}
+.orbit:nth-child(7){animation-duration:20s;}
+
+@keyframes spin{
+    from{ transform:rotate(0deg) translateX(100px) rotate(0deg); }
+    to{ transform:rotate(360deg) translateX(100px) rotate(-360deg); }
+}
+
+/* MAIN CARD */
 .card{
     background:rgba(255,255,255,0.08);
     backdrop-filter:blur(12px);
@@ -104,6 +136,11 @@ body{
     cursor:pointer;
     font-weight:bold;
     text-align:center;
+    transition:0.3s;
+}
+
+.folder:hover{
+    background:#0ea5e9;
 }
 
 .sub{display:none;}
@@ -123,25 +160,35 @@ body{
 </head>
 <body>
 
-<!-- Login -->
+<!-- LOGIN -->
 <div id="login">
     <h2>🔐 SSC Secure Access</h2>
-
     <div class="password-box">
         <input type="password" id="pass" placeholder="Enter Password">
         <span onclick="togglePassword()">👁️</span>
     </div>
-
     <button onclick="checkPass()">Login</button>
 </div>
 
-<!-- Developer Card -->
+<!-- DEVELOPER CARD -->
 <div class="dev-card">
-    <img src="dev.jpg" alt="Developer Photo">
+
+    <div class="orbit-container">
+        <img src="dev.jpg" class="profile">
+
+        <span class="orbit">E=mc²</span>
+        <span class="orbit">⚛️</span>
+        <span class="orbit">H₂O</span>
+        <span class="orbit">🧪</span>
+        <span class="orbit">F=ma</span>
+        <span class="orbit">🔬</span>
+    </div>
+
     <h3>Developed by Siam</h3>
     <p>SSC 2026 • Science Group</p>
 </div>
 
+<!-- MAIN CONTENT -->
 <div class="card">
 
 <div class="folder" onclick="toggle(1)">📁 পদার্থবিজ্ঞান</div>
@@ -162,11 +209,11 @@ body{
 </div>
 
 <script>
-const correctPassword = "walton";
+const correctPassword = "260074";
 
 function checkPass(){
-    const input = document.getElementById("pass").value;
-    if(input === correctPassword){
+    const input=document.getElementById("pass").value;
+    if(input===correctPassword){
         localStorage.setItem("accessGranted","true");
         document.getElementById("login").style.display="none";
     }else{
@@ -179,12 +226,8 @@ if(localStorage.getItem("accessGranted")==="true"){
 }
 
 function togglePassword(){
-    const passInput = document.getElementById("pass");
-    if(passInput.type === "password"){
-        passInput.type = "text";
-    }else{
-        passInput.type = "password";
-    }
+    const passInput=document.getElementById("pass");
+    passInput.type=passInput.type==="password"?"text":"password";
 }
 
 function toggle(id){
