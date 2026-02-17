@@ -1,52 +1,189 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <title>Exam Result</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSC Study Drive</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    color:#fff;
+    background: linear-gradient(-45deg,#141e30,#243b55,#0f2027,#1e3c72);
+    background-size:400% 400%;
+    animation:gradientBG 12s ease infinite;
+}
+
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* Developer Card */
+.dev-card{
+    text-align:center;
+    padding:20px;
+    margin:25px auto;
+    max-width:330px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    box-shadow:0 8px 30px rgba(0,0,0,0.4);
+}
+
+.dev-card img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    border:3px solid #38bdf8;
+}
+
+.dev-card h3{margin:10px 0 5px;}
+.dev-card p{margin:0;font-size:14px;color:#ddd;}
+
+/* Main Card */
+.card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+    border-radius:20px;
+    padding:20px;
+    margin:20px auto;
+    max-width:420px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.4);
+}
+
+h2{text-align:center;}
+
+/* Folder */
+.folder{
+    background:#38bdf8;
+    padding:14px;
+    border-radius:12px;
+    margin:10px 0;
+    cursor:pointer;
+    font-weight:bold;
+    text-align:center;
+    transition:0.3s;
+}
+
+.folder:hover{
+    background:#0ea5e9;
+    transform:scale(1.05);
+}
+
+.sub{display:none;}
+
+.download-btn{
+    display:block;
+    text-align:center;
+    background:#22c55e;
+    padding:10px;
+    margin-top:8px;
+    border-radius:10px;
+    text-decoration:none;
+    color:#fff;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.download-btn:hover{
+    background:#16a34a;
+}
+
+/* Login Screen */
+#login{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#0f172a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:999;
+}
+
+#login input{
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    margin-top:10px;
+}
+
+#login button{
+    padding:10px 20px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    background:#38bdf8;
+    color:#fff;
+    cursor:pointer;
+}
+</style>
 </head>
 <body>
 
-<h2>পরীক্ষার রেজাল্ট</h2>
+<!-- Password Screen -->
+<div id="login">
+    <h2>🔐 SSC Secure Access</h2>
+    <input type="password" id="pass" placeholder="Enter Password">
+    <button onclick="checkPass()">Login</button>
+</div>
 
-<label>Roll Number:</label>
-<input type="text" id="roll" placeholder="Roll Number">
+<!-- Developer Card -->
+<div class="dev-card">
+    <img src="dev.jpg" alt="Developer Photo">
+    <h3>Developed by Siam</h3>
+    <p>SSC 2026 • Science Group</p>
+    <p>Future Engineer 🚀</p>
+</div>
 
-<button onclick="getResult()">রেজাল্ট দেখুন</button>
+<div class="card">
+<h2>📚 SSC 2026 Study Drive</h2>
 
-<div id="result" style="margin-top:20px;"></div>
+<div class="folder" onclick="toggle(1)">📁 পদার্থবিজ্ঞান</div>
+<div class="sub" id="1">
+<a class="download-btn" href="https://drive.google.com/uc?export=download&id=1atcsnz77t45XFIHG6iB2hKrYBghaTd8H">⬇ Download</a>
+</div>
+
+<div class="folder" onclick="toggle(2)">📁 গণিত</div>
+<div class="sub" id="2">
+<a class="download-btn" href="https://drive.google.com/uc?export=download&id=1YN-LEMdk76B0ozv21_o2jfvnb2TQxcRn">⬇ Download</a>
+</div>
+
+<div class="folder" onclick="toggle(3)">📁 ICT</div>
+<div class="sub" id="3">
+<a class="download-btn" href="https://drive.google.com/uc?export=download&id=1tfh3ccVmhhnBb6TI6MB_4ZtNTxmRXHbJ">⬇ Download</a>
+</div>
+
+</div>
 
 <script>
-function getResult() {
-  var roll = document.getElementById("roll").value.trim();
+const correctPassword = "Siam@SSC2026!";
 
-  // তোমার CSV link
-  var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg5JxNEchx7EygCk_JFu20HjgZsLMi1cDaxvyMtZm2fk1_l2GBh3kuJ0fZV7UgTVOBpmAd-ss7Ov77/pub?output=csv";
+function checkPass(){
+    const input = document.getElementById("pass").value;
+    if(input === correctPassword){
+        localStorage.setItem("accessGranted","true");
+        document.getElementById("login").style.display="none";
+    }else{
+        alert("Wrong Password!");
+    }
+}
 
-  fetch(url)
-    .then(res => res.text())
-    .then(csvText => {
-      let rows = csvText.trim().split("\n").map(r => r.split(","));
-      // Column A-F: A=Roll, B=Name, C=Bangla, D=Math, E=Total, F=Grade
-      let data = rows.slice(1).map(r => ({
-        A: r[0], B: r[1], C: r[2], D: r[3], E: r[4], F: r[5]
-      }));
-      let found = data.find(r => r.A == roll);
-      if(found){
-        document.getElementById("result").innerHTML = `
-          <p>Name: ${found.B}</p>
-          <p>Bangla: ${found.C}</p>
-          <p>Math: ${found.D}</p>
-          <p>Total: ${found.E}</p>
-          <p>Grade: ${found.F}</p>
-        `;
-      } else {
-        document.getElementById("result").innerHTML = "রেজাল্ট পাওয়া যায়নি";
-      }
-    })
-    .catch(err => {
-      document.getElementById("result").innerHTML = "ডাটা লোড করতে সমস্যা হয়েছে";
-      console.error(err);
-    });
+if(localStorage.getItem("accessGranted")==="true"){
+    document.getElementById("login").style.display="none";
+}
+
+function toggle(id){
+    const subs=document.querySelectorAll(".sub");
+    subs.forEach(el=>el.style.display="none");
+    const target=document.getElementById(id);
+    target.style.display="block";
 }
 </script>
 
